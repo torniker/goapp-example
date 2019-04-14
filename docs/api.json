@@ -1,0 +1,36 @@
+[
+    {
+        "name": "not found",
+        "request": {
+            "method": "get",
+            "uri": "/bad-url"
+        },
+        "response": {
+            "status": 404,
+            "type": "app.ResponseErr"
+        }
+    },
+    {
+        "name": "should insert and return user",
+        "request": {
+            "method": "post",
+            "uri": "/api/user",
+            "input": "{\"username\": \"iuzer\",\"password\": \"123\"}"
+        },
+        "response": {
+            "status": 200,
+            "type": "model.User"
+        }
+    },
+    {
+        "name": "should return user",
+        "request": {
+            "method": "get",
+            "uri": "/api/user/08f0d809-688d-4de1-a037-18b2e7659119"
+        },
+        "response": {
+            "status": 200,
+            "type": "model.User"
+        }
+    }
+]
