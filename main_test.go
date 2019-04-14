@@ -9,10 +9,10 @@ import (
 	"testing"
 
 	"github.com/joho/godotenv"
-	"github.com/torniker/goapp/app"
-	"github.com/torniker/goapp/app/logger"
-	"github.com/torniker/goapp/app/request"
-	"github.com/torniker/goapp/app/response"
+	app "github.com/torniker/goapp"
+	"github.com/torniker/goapp/logger"
+	"github.com/torniker/goapp/request"
+	"github.com/torniker/goapp/response"
 )
 
 type (

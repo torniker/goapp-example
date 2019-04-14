@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"github.com/torniker/goapp/app"
-	"github.com/torniker/goapp/routes/api"
+	app "github.com/torniker/goapp"
+	"github.com/torniker/goapp-example/routes/api"
 )
 
 func Handler(c *app.Ctx) error {

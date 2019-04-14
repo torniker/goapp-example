@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/torniker/goapp/app"
-	"github.com/torniker/goapp/app/logger"
-	"github.com/torniker/goapp/db"
-	"github.com/torniker/goapp/routes"
+	app "github.com/torniker/goapp"
+	"github.com/torniker/goapp-example/db"
+	"github.com/torniker/goapp-example/routes"
+	"github.com/torniker/goapp/logger"
 )
 
 type config struct {

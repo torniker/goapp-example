@@ -2,7 +2,7 @@ package db
 
 import (
 	"github.com/gofrs/uuid"
-	"github.com/torniker/goapp/schema"
+	"github.com/torniker/goapp-example/schema"
 )
 
 // UserInsert inserts user

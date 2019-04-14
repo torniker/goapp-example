@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/torniker/goapp/app"
-	"github.com/torniker/goapp/routes/api/user"
+	app "github.com/torniker/goapp"
+	"github.com/torniker/goapp-example/routes/api/user"
 )
 
 func Handler(c *app.Ctx) error {

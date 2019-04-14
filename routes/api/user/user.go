@@ -6,13 +6,13 @@ import (
 	"time"
 
 	"github.com/gofrs/uuid"
-	"github.com/torniker/goapp/app"
-	"github.com/torniker/goapp/app/logger"
-	"github.com/torniker/goapp/app/request"
-	"github.com/torniker/goapp/app/response"
-	"github.com/torniker/goapp/db"
-	"github.com/torniker/goapp/model"
-	"github.com/torniker/goapp/schema"
+	app "github.com/torniker/goapp"
+	"github.com/torniker/goapp-example/db"
+	"github.com/torniker/goapp-example/model"
+	"github.com/torniker/goapp-example/schema"
+	"github.com/torniker/goapp/logger"
+	"github.com/torniker/goapp/request"
+	"github.com/torniker/goapp/response"
 )
 
 func Handler(c *app.Ctx) error {

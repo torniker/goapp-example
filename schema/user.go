@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/gofrs/uuid"
-	"github.com/torniker/goapp/model"
+	"github.com/torniker/goapp-example/model"
 )
 
 type User struct {
