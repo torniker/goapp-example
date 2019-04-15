@@ -1,8 +1,6 @@
 package user
 
 import (
-	"encoding/json"
-	"net/url"
 	"time"
 
 	"github.com/gofrs/uuid"
@@ -11,19 +9,14 @@ import (
 	"github.com/torniker/goapp-example/model"
 	"github.com/torniker/goapp-example/schema"
 	"github.com/torniker/goapp/logger"
-	"github.com/torniker/goapp/request"
-	"github.com/torniker/goapp/response"
 )
 
+// Handler handles /api/user routes
 func Handler(c *app.Ctx) error {
 	// if request method is POST call handleInsert
-	c.POST(handleInsert)
+	c.Create(handleInsert)
 	// if request method is GET call handleByID
-	c.GET(handleByID)
-	// else call handleElse
-	c.ELSE(handleElse)
-	// Do the logic built above
-	c.Do()
+	c.Read(handleByID)
 	return nil
 }
 
@@ -32,7 +25,7 @@ func handleElse(c *app.Ctx) error {
 }
 
 func handleByID(c *app.Ctx) error {
-	userID, err := uuid.FromString(c.CurrentPath.Next())
+	userID, err := uuid.FromString(c.Request.Path().Next())
 	if err != nil {
 		logger.Warn(err)
 		return c.NotFound()
@@ -54,9 +47,8 @@ type userInsertRequest struct {
 }
 
 func handleInsert(c *app.Ctx) error {
-	decoder := json.NewDecoder(c.Request.Input())
 	var uir userInsertRequest
-	err := decoder.Decode(&uir)
+	err := c.Request.Bind(&uir)
 	if err != nil {
 		logger.Error(err)
 		return err
@@ -76,16 +68,10 @@ func handleInsert(c *app.Ctx) error {
 	if err != nil {
 		return err
 	}
-	a := c.App
-	u, err := url.Parse("/api/user/" + id.String())
+	var user model.User
+	err = c.App.Call().Read("/api/user/" + id.String()).Flags(c.Request.Flags()).Bind(&user)
 	if err != nil {
-		return err
+		return c.NotFound()
 	}
-	subCtx := a.NewCtx(request.NewSub("GET", u, ""), response.NewSub())
-	err = a.DefaultHandler(subCtx)
-	if err != nil {
-		return err
-	}
-	user := subCtx.Response.Output().(model.User)
 	return c.JSON(user)
 }
