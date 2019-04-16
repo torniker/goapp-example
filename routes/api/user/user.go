@@ -20,10 +20,6 @@ func Handler(c *app.Ctx) error {
 	return nil
 }
 
-func handleElse(c *app.Ctx) error {
-	return c.JSON([]string{})
-}
-
 func handleByID(c *app.Ctx) error {
 	userID, err := uuid.FromString(c.Request.Path().Next())
 	if err != nil {

@@ -6,7 +6,7 @@ import (
 )
 
 func Handler(c *app.Ctx) error {
-	switch c.CurrentPath.Next() {
+	switch c.Request.Path().Next() {
 	case "user":
 		c.Next(user.Handler)
 		return nil

@@ -6,7 +6,7 @@ import (
 )
 
 func Handler(c *app.Ctx) error {
-	if c.CurrentPath.Next() == "api" {
+	if c.Request.Path().Next() == "api" {
 		c.Next(api.Handler)
 		return nil
 	}
