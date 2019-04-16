@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"os"
 	"reflect"
+	"strings"
 	"testing"
 
 	"github.com/joho/godotenv"
@@ -28,7 +29,7 @@ type (
 	}
 
 	req struct {
-		Method string `json:"method"`
+		Action string `json:"action"`
 		URI    string `json:"uri"`
 		Input  string `json:"input"`
 	}
@@ -68,8 +69,14 @@ func TestApp(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			ctx := a.NewCtx(request.NewCLI(test.Request.Method, url, test.Request.Input), response.NewCLI())
-			err = a.DefaultHandler(ctx, ctx.CurrentPath.Next())
+			req := request.Req{}
+			action := request.NewActionFromString(test.Request.Action)
+			req.SetAction(action).SetPath(url)
+			if test.Request.Input != "" {
+				req.SetInput(strings.NewReader(test.Request.Input))
+			}
+			ctx := a.NewCtx(req, response.NewResponse())
+			err = a.DefaultHandler(ctx)
 			if err != nil {
 				ctx.Error(err)
 			}

@@ -2,7 +2,7 @@
     {
         "name": "not found",
         "request": {
-            "method": "get",
+            "action": "read",
             "uri": "/bad-url"
         },
         "response": {
@@ -13,7 +13,7 @@
     {
         "name": "should insert and return user",
         "request": {
-            "method": "post",
+            "action": "create",
             "uri": "/api/user",
             "input": "{\"username\": \"iuzer\",\"password\": \"123\"}"
         },
@@ -25,7 +25,7 @@
     {
         "name": "should return user",
         "request": {
-            "method": "get",
+            "action": "read",
             "uri": "/api/user/08f0d809-688d-4de1-a037-18b2e7659119"
         },
         "response": {
