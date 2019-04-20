@@ -1,11 +1,11 @@
 package routes
 
 import (
-	app "github.com/torniker/goapp"
-	"github.com/torniker/goapp-example/routes/api"
+	"github.com/torniker/wrap"
+	"github.com/torniker/wrap-example/routes/api"
 )
 
-func Handler(c *app.Ctx) error {
+func Handler(c *wrap.Ctx) error {
 	if c.Request.Path().Next() == "api" {
 		c.Next(api.Handler)
 		return nil

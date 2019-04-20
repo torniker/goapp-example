@@ -5,10 +5,10 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	app "github.com/torniker/goapp"
-	"github.com/torniker/goapp-example/db"
-	"github.com/torniker/goapp-example/routes"
-	"github.com/torniker/goapp/logger"
+	"github.com/torniker/wrap"
+	"github.com/torniker/wrap-example/db"
+	"github.com/torniker/wrap-example/routes"
+	"github.com/torniker/wrap/logger"
 )
 
 type config struct {
@@ -32,18 +32,18 @@ func main() {
 		PostgresUser:     os.Getenv("POSTGRES_USER"),
 		PostgresPassword: os.Getenv("POSTGRES_PASSWORD"),
 	}
-	a := app.New()
-	err = setup(a, cfg)
+	p := wrap.New()
+	err = setup(p, cfg)
 	if err != nil {
 		logger.Error(err)
 	}
-	a.StartHTTP(":8989")
+	p.StartHTTP(":8989")
 	// a.StartCLI()
 }
 
-func setup(a *app.App, cfg config) error {
-	a.DefaultHandler = routes.Handler
-	a.Env = cfg.Environment
+func setup(p *wrap.Prog, cfg config) error {
+	p.DefaultHandler = routes.Handler
+	p.Env = cfg.Environment
 	addr := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresAddr, cfg.PostgresDB)
 	return db.New(addr)
 }

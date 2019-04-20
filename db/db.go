@@ -3,7 +3,7 @@ package db
 import (
 	"github.com/jmoiron/sqlx"
 	"github.com/lib/pq"
-	app "github.com/torniker/goapp"
+	"github.com/torniker/wrap"
 )
 
 const key string = "postgres"
@@ -19,10 +19,10 @@ func New(addr string) error {
 	if err != nil {
 		return err
 	}
-	app.Instance().Store[key] = db
+	wrap.Instance().Store[key] = db
 	return nil
 }
 
 func db() *sqlx.DB {
-	return app.Instance().Store[key].(*sqlx.DB)
+	return wrap.Instance().Store[key].(*sqlx.DB)
 }

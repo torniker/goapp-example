@@ -1,6 +1,6 @@
 # Setup
 
-`go get github.com/torniker/goapp`
+`go get github.com/torniker/wrap`
 
 `go run main.go`
 

@@ -4,15 +4,15 @@ import (
 	"time"
 
 	"github.com/gofrs/uuid"
-	app "github.com/torniker/goapp"
-	"github.com/torniker/goapp-example/db"
-	"github.com/torniker/goapp-example/model"
-	"github.com/torniker/goapp-example/schema"
-	"github.com/torniker/goapp/logger"
+	"github.com/torniker/wrap"
+	"github.com/torniker/wrap-example/db"
+	"github.com/torniker/wrap-example/model"
+	"github.com/torniker/wrap-example/schema"
+	"github.com/torniker/wrap/logger"
 )
 
 // Handler handles /api/user routes
-func Handler(c *app.Ctx) error {
+func Handler(c *wrap.Ctx) error {
 	// if request method is POST call handleInsert
 	c.Create(handleInsert)
 	// if request method is GET call handleByID
@@ -20,7 +20,7 @@ func Handler(c *app.Ctx) error {
 	return nil
 }
 
-func handleByID(c *app.Ctx) error {
+func handleByID(c *wrap.Ctx) error {
 	userID, err := uuid.FromString(c.Request.Path().Next())
 	if err != nil {
 		logger.Warn(err)
@@ -42,7 +42,7 @@ type userInsertRequest struct {
 	Password string `json:"password"`
 }
 
-func handleInsert(c *app.Ctx) error {
+func handleInsert(c *wrap.Ctx) error {
 	var uir userInsertRequest
 	err := c.Request.Bind(&uir)
 	if err != nil {
@@ -65,7 +65,7 @@ func handleInsert(c *app.Ctx) error {
 		return err
 	}
 	var user model.User
-	err = c.App.Call().Read("/api/user/" + id.String()).Flags(c.Request.Flags()).Bind(&user)
+	err = c.Prog.Call().Read("/api/user/" + id.String()).Flags(c.Request.Flags()).Bind(&user)
 	if err != nil {
 		return c.NotFound()
 	}

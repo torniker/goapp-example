@@ -10,10 +10,10 @@ import (
 	"testing"
 
 	"github.com/joho/godotenv"
-	app "github.com/torniker/goapp"
-	"github.com/torniker/goapp/logger"
-	"github.com/torniker/goapp/request"
-	"github.com/torniker/goapp/response"
+	"github.com/torniker/wrap"
+	"github.com/torniker/wrap/logger"
+	"github.com/torniker/wrap/request"
+	"github.com/torniker/wrap/response"
 )
 
 type (
@@ -41,14 +41,14 @@ func TestApp(t *testing.T) {
 		t.Fatal("Error loading .env file")
 	}
 	cfg := config{
-		Environment:      app.Testing,
+		Environment:      wrap.Testing,
 		PostgresAddr:     os.Getenv("POSTGRES_ADDRESS"),
 		PostgresDB:       os.Getenv("POSTGRES_DB"),
 		PostgresUser:     os.Getenv("POSTGRES_USER"),
 		PostgresPassword: os.Getenv("POSTGRES_PASSWORD"),
 	}
-	a := app.New()
-	err = setup(a, cfg)
+	p := wrap.New()
+	err = setup(p, cfg)
 	if err != nil {
 		logger.Error(err)
 	}
@@ -75,8 +75,8 @@ func TestApp(t *testing.T) {
 			if test.Request.Input != "" {
 				req.SetInput(strings.NewReader(test.Request.Input))
 			}
-			ctx := a.NewCtx(req, response.NewResponse())
-			err = a.DefaultHandler(ctx)
+			ctx := p.NewCtx(req, response.NewResponse())
+			err = p.DefaultHandler(ctx)
 			if err != nil {
 				ctx.Error(err)
 			}
