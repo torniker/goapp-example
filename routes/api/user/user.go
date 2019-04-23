@@ -14,9 +14,9 @@ import (
 // Handler handles /api/user routes
 func Handler(c *wrap.Ctx) error {
 	// if request method is POST call handleInsert
-	c.Create(handleInsert)
+	c.Post(handleInsert)
 	// if request method is GET call handleByID
-	c.Read(handleByID)
+	c.Get(handleByID)
 	return nil
 }
 
@@ -28,8 +28,7 @@ func handleByID(c *wrap.Ctx) error {
 	}
 	user, err := db.UserByID(userID)
 	if err != nil {
-		logger.Error(err)
-		return c.InternalError()
+		return c.InternalError(err)
 	}
 	if user == nil {
 		return c.NotFound()
